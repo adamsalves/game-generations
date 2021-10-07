@@ -1,5 +1,8 @@
 # game-generations
 
+# Versão do Node.js
+Este projeto roda na versão v14.17.6 ou superior
+
 ## Build Setup
 
 ```bash
