@@ -1,12 +1,22 @@
 <template>
   <div>
     <Header />
-    <!-- <Tutorial/> -->
   </div>
 </template>
 
 <script>
-export default {}
+export default {
+  head() {
+    return {
+      title: 'Home - Pokémon - Game Generations',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Pokémon - Game Generations - Lista de gerações de Pokémons e seus detalhes'
+        }
+      ]
+    }
+  }
+}
 </script>
-
-Header
