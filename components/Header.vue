@@ -48,7 +48,7 @@ export default {
   align-items: center;
   justify-content: center;
   font-size: 1.5rem;
-  font-weight: bold;
+  font-weight: 600;
   padding-right: 20px;
   padding-left: 20px;
   box-shadow: 0px 0px 15px rgba(0 0 0 / 20%);
