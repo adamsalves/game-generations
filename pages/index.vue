@@ -1,18 +1,21 @@
 <template>
   <div class="columns">
-    <Card class="column" name="generation-i" />
-    <Card class="column" name="generation-ii" />
-    <Card class="column" name="generation-iii" />
-    <Card class="column" name="generation-iv" />
-    <Card class="column" name="generation-v" />
-    <Card class="column" name="generation-vi" />
-    <Card class="column" name="generation-vii" />
-    <Card class="column" name="generation-viii" />
+    <Card
+      v-for="generation in generationsList"
+      :key="generation.name"
+      :name="generation.name"
+      class="column"
+    />
   </div>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      generationsList: []
+    }
+  },
   head() {
     return {
       title: 'Home - Pokémon - Game Generations',
@@ -23,6 +26,24 @@ export default {
           content: 'Pokémon - Game Generations - Lista de gerações de Pokémons e seus detalhes'
         }
       ]
+    }
+  },
+  mounted() {
+    this.getGenerations()
+  },
+  methods: {
+    async getGenerations() {
+      try {
+        const { data } = await this.$services.generation.getGenerations()
+        this.generationsList = data.results
+      } catch (error) {
+        this.$buefy.toast.open({
+          duration: 5000,
+          message: `Erro ao carregar dados: ${error.message}`,
+          position: 'is-bottom',
+          type: 'is-danger'
+        })
+      }
     }
   }
 }
