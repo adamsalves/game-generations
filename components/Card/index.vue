@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card" @click="handleClickCard(generationNumber(name))">
     <div class="card-content">
       <div class="content">
         <header class="name">
@@ -37,6 +37,9 @@ export default {
       };
       return generations[generation] || generations.default;
     },
+    handleClickCard(hash) {
+      this.$emit('generation-id', hash)
+    },
   }
 }
 </script>
@@ -46,6 +49,18 @@ export default {
   max-width: 250px;
   border-radius: 15px;
   box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 44%), 0 0px 0 1px rgb(10 10 10 / 30%);
+  cursor: pointer;
+}
+
+.card:hover {
+  box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 70%), 0 0px 0 1px rgb(255 28 28 / 70%);
+}
+
+.card:hover .content .name .content-name,
+.card:hover .content .generation-number,
+.card:hover .content .name .generation-title {
+  color: #ff6666;
+  transition: .6s;
 }
 
 .card .card-content {
