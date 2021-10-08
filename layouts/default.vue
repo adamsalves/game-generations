@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="poke-app">
     <Header />
-    <div>
+    <main class="main">
       <Nuxt />
-    </div>
+    </main>
   </div>
 </template>
 
@@ -29,5 +29,16 @@ html, body {
 *::after {
   box-sizing: border-box;
   margin: 0;
+}
+.poke-app {
+  background-image: url('assets/images/container_bg.png');
+  background-repeat: repeat;
+}
+
+.main {
+  max-width: 960px;
+  margin: 15px auto;
+  height: 100vh;
+  padding-top: 100px;
 }
 </style>

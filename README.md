@@ -1,7 +1,7 @@
 # game-generations
 
-# Versão do Node.js
-Este projeto roda na versão v14.17.6 ou superior
+# Versão do Node.js/NPM
+Este projeto roda na versão v14.17.6 (npm v6.14.15)
 
 ## Build Setup
 
