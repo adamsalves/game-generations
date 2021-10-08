@@ -38,7 +38,7 @@ html, body {
 .main {
   max-width: 960px;
   margin: 15px auto;
-  height: 100vh;
+  min-height: 100vh;
   padding-top: 100px;
 }
 </style>

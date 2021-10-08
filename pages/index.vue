@@ -5,11 +5,13 @@
       :key="generation.name"
       :name="generation.name"
       class="column"
+      @generation-id="generationModal"
     />
   </div>
 </template>
 
 <script>
+import Generations from '@/components/Modal/Generations.vue'
 export default {
   data() {
     return {
@@ -44,7 +46,17 @@ export default {
           type: 'is-danger'
         })
       }
-    }
+    },
+    generationModal(hash) {
+      this.$buefy.modal.open({
+        parent: this,
+        component: Generations,
+        customClass: 'generation-modal',
+        props: {
+          id: hash,
+        }
+      })
+    },
   }
 }
 </script>
