@@ -27,6 +27,12 @@ export default {
     ]
   },
 
+  loadingIndicator: {
+    name: 'pulse',
+    color: '#868686',
+    background: 'white'
+  },
+
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
   ],
