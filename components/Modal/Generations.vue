@@ -23,7 +23,7 @@
           <b-carousel-item v-for="specie in pokemonsfiltered" :key="specie.name">
             <section class="is-info">
               <div class="hero-body has-text-centered">
-                <h1 class="title">{{ specie.name }}</h1>
+                <h1 class="title" @click="handleClickSpecie(specie.name)">{{ specie.name }}</h1>
               </div>
             </section>
           </b-carousel-item>
@@ -79,6 +79,14 @@ export default {
           )
       })
     }
+  },
+  methods: {
+    handleClickSpecie(name) {
+      this.$parent.close()
+      this.$router.push({
+        path: `/pokemon/${name}`,
+      })
+    }
   }
 }
 </script>
@@ -119,6 +127,17 @@ export default {
     1px -1px 2px black,
    -1px  1px 2px black,
    -1px -1px 2px black;
+  cursor: pointer;
+}
+
+.poke-generation .generation-species .title:hover {
+  color: #000;
+  text-shadow:
+    1px  1px 2px white,
+    1px -1px 2px white,
+   -1px  1px 2px white,
+   -1px -1px 2px white;
+   transition: .5s;
 }
 
 .poke-generation .generation-species .carousel {
