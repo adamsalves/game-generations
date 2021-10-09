@@ -3,7 +3,7 @@
     <h1 class="generation-title">Geração #{{ generation.id }} <span class="tag is-warning">{{ generation.name }}</span></h1>
     <div class="generation-info block">
       <div class="generation-region">
-        Região de <strong>{{ generation.main_region.name }}</strong> <i><font-awesome-icon :icon="['fa', 'globe']"/></i>
+        <strong>{{ generation.pokemon_species.length }}</strong> Pokémons na região de <strong>{{ generation.main_region.name }}</strong> <i><font-awesome-icon :icon="['fa', 'globe']"/></i>
       </div>
 
       <div v-if="generation.pokemon_species.length > 0" class="generation-species">
@@ -19,7 +19,7 @@
             @select="option => (selected = option)"
           />
 
-        <b-carousel :indicator="false" :arrow-hover="false">
+        <b-carousel :indicator="false" :arrow-hover="false" :pause-hover="false">
           <b-carousel-item v-for="specie in pokemonsfiltered" :key="specie.name">
             <section class="is-info">
               <div class="hero-body has-text-centered">
@@ -55,7 +55,7 @@ export default {
       openOnFocus: false,
       name: '',
       selected: null,
-      clearable: false
+      clearable: true
     }
   },
   async fetch() {
