@@ -1,5 +1,5 @@
 <template>
-  <div class="card" @click="handleClickCard(generationNumber(name))">
+  <div class="card" :style="{ backgroundColor }" @click="handleClickCard(generationNumber(name))">
     <div class="card-content">
       <div class="content">
         <header class="name">
@@ -18,6 +18,10 @@
 export default {
   props: {
     name: {
+      type: String,
+      required: true
+    },
+    backgroundColor: {
       type: String,
       required: true
     },
@@ -53,13 +57,13 @@ export default {
 }
 
 .card:hover {
-  box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 70%), 0 0px 0 1px rgb(255 28 28 / 70%);
+  box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 44%), 0 0px 0 1px rgb(10 10 10 / 70%);
 }
 
 .card:hover .content .name .content-name,
 .card:hover .content .generation-number,
 .card:hover .content .name .generation-title {
-  color: #ff6666;
+  color: rgba(23, 23, 27, 1);
   transition: .6s;
 }
 
@@ -83,13 +87,14 @@ export default {
 .content .name .content-name {
   font-size: 1rem;
   display: inline-flex;
-  color: #aaa;
+  color: rgba(23, 23, 27, 0.6);
 }
 
 .content .name .generation-title {
   font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-size: 2.7rem;
   margin-bottom: 100px;
+  color: rgba(23, 23, 27, 0.6);
 }
 
 .content .generation-number {
@@ -100,6 +105,7 @@ export default {
   position: absolute;
   bottom: 0;
   left: 0;
+  color: rgba(23, 23, 27, 0.6);
 }
 
 @media (max-width: 960px) {
