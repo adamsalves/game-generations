@@ -3,7 +3,9 @@
     <div class="pokemon">
       <div v-if="pokemon" class="card">
         <header class="p-header" :style="{ backgroundColor: GET_BACKGROUND_COLOR }">
-          <h1 class="pokemon-name">{{ pokemon.name }} <span class="pokemon-number">#{{ pokemon.id | formatIdNumber }}</span></h1>
+          <h1 class="pokemon-name">
+            <span v-if="training" class="pokemon-name-generation">{{ training.generation.name }}</span>
+            {{ pokemon.name }} <span class="pokemon-number">#{{ pokemon.id | formatIdNumber }}</span></h1>
           <div class="card-image">
             <figure class="image poke-image">
               <img :src="`${pokemon.sprites.other['official-artwork'].front_default}`" :alt="`Pokémon - ${pokemon.name}`">
@@ -197,6 +199,13 @@ export default {
   text-align: center;
   padding-top: 20px;
   text-transform: capitalize;
+}
+
+.pokemon .p-header .pokemon-name-generation {
+  text-transform: none;
+  display: block;
+  font-size: 1rem;
+  color: rgba(23, 23, 27, 0.5);
 }
 
 .pokemon .card-image {
