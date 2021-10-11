@@ -4,7 +4,7 @@
       <div class="content">
         <header class="name">
           <span class="content-name">{{ name }}</span>
-          <h2 class="generation-title">Geração</h2>
+          <h2 class="generation-title">Generation</h2>
         </header>
         <footer>
           <p class="generation-number">{{ generationNumber(name) }}</p>
@@ -88,7 +88,7 @@ export default {
 
 .content .name .generation-title {
   font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  font-size: 3rem;
+  font-size: 2.7rem;
   margin-bottom: 100px;
 }
 
