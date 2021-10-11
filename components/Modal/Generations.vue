@@ -132,6 +132,7 @@ export default {
    -1px  1px 2px black,
    -1px -1px 2px black;
   cursor: pointer;
+  margin: 0 20px;
 }
 
 .poke-generation .generation-species .title:hover {
