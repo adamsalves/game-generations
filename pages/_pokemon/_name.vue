@@ -36,6 +36,7 @@
 
               <b-tab-item v-if="training" label="Training">
                 <div class="poke-content">
+                  <p class="poke-desc is-6"><strong>Generation:</strong> {{ training.generation.name }}</p>
                   <p class="poke-desc is-6"><strong>Base happiness:</strong> {{ training.base_happiness }}</p>
                   <p class="poke-desc is-6">
                     <strong>Habitat:</strong> {{ training.habitat ? training.habitat.name : 'unknown' }}
