@@ -9,4 +9,3 @@ export default ($axios) =>({
     return $axios.get(`${resource}/${id}`)
   },
 })
-

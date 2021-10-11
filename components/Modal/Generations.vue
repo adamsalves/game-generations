@@ -1,16 +1,16 @@
 <template>
   <div v-if="generation" class="content poke-generation">
-    <h1 class="generation-title">Geração #{{ generation.id }} <span class="tag is-warning">{{ generation.name }}</span></h1>
+    <h1 class="generation-title">Generation #{{ generation.id }} <span class="tag is-warning">{{ generation.name }}</span></h1>
     <div class="generation-info block">
       <div class="generation-region">
-        <strong>{{ generation.pokemon_species.length }}</strong> Pokémons na região de <strong>{{ generation.main_region.name }}</strong> <i><font-awesome-icon :icon="['fa', 'globe']"/></i>
+        <strong>{{ generation.pokemon_species.length }}</strong> Pokémons in the <strong>{{ generation.main_region.name }}</strong> region <i><font-awesome-icon :icon="['fa', 'globe']"/></i>
       </div>
 
       <div v-if="generation.pokemon_species.length > 0" class="generation-species">
-        <h2>Espécies</h2>
+        <h2>Species</h2>
           <b-autocomplete
             v-model="name"
-            placeholder="Procure pelo nome do Pokémon"
+            placeholder="Search for Pokémon name"
             :keep-first="keepFirst"
             :open-on-focus="openOnFocus"
             :data="pokemonsfiltered"
@@ -23,7 +23,7 @@
           <b-carousel-item v-for="specie in pokemonsfiltered" :key="specie.name">
             <section class="is-info">
               <div class="hero-body has-text-centered">
-                <h1 class="title">{{ specie.name }}</h1>
+                <h1 class="title" @click="handleClickSpecie(specie.name)">{{ specie.name }}</h1>
               </div>
             </section>
           </b-carousel-item>
@@ -31,7 +31,7 @@
       </div>
 
       <div v-if="generation.types.length > 0" class="generation-type">
-        <h3>Tipos</h3>
+        <h3>Types</h3>
         <span v-for="type in generation.types" :key="type.name" class="tag is-light">{{ type.name }}</span>
       </div>
 
@@ -50,7 +50,6 @@ export default {
   data() {
     return {
       generation: null,
-      error: null,
       keepFirst: false,
       openOnFocus: false,
       name: '',
@@ -63,9 +62,14 @@ export default {
       const _id = this.id.replace('#', '')
       const gen = await this.$services.generation.getGererationById(_id)
       this.generation = gen.data
-      this.error = null
     } catch (error) {
-      this.error = error.message
+      this.$parent.close()
+      this.$buefy.toast.open({
+        duration: 5000,
+        message: `Não foi possivel retornar os dados! ${error.message}`,
+        position: 'is-bottom',
+        type: 'is-danger'
+      })
     }
   },
    computed: {
@@ -77,6 +81,14 @@ export default {
               .toLowerCase()
               .includes(this.name.toLowerCase()) > 0
           )
+      })
+    }
+  },
+  methods: {
+    handleClickSpecie(name) {
+      this.$parent.close()
+      this.$router.push({
+        path: `/pokemon/${name}`,
       })
     }
   }
@@ -119,6 +131,17 @@ export default {
     1px -1px 2px black,
    -1px  1px 2px black,
    -1px -1px 2px black;
+  cursor: pointer;
+}
+
+.poke-generation .generation-species .title:hover {
+  color: #000;
+  text-shadow:
+    1px  1px 2px white,
+    1px -1px 2px white,
+   -1px  1px 2px white,
+   -1px -1px 2px white;
+   transition: .5s;
 }
 
 .poke-generation .generation-species .carousel {

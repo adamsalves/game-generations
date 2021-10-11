@@ -60,6 +60,10 @@ export default {
   z-index: 1;
   top: 0;
 }
+.header .header-content:hover .title {
+  color: #ff6666;
+  transition: .5s;
+}
 .header .pokeball {
   margin-right: 15px;
 }
