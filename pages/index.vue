@@ -41,6 +41,7 @@ export default {
         const { data } = await this.$services.generation.getGenerations()
         this.generationsList = data.results
       } catch (error) {
+        // urshifu
         this.$buefy.toast.open({
           duration: 5000,
           message: `Erro ao carregar dados: ${error.message}`,

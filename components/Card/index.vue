@@ -1,5 +1,5 @@
 <template>
-  <div class="card" :style="{ backgroundColor }" @click="handleClickCard(generationNumber(name))">
+  <div class="card" :style="{ backgroundColor }" @click="handleClickCard(generationNumber(name), backgroundColor)">
     <div class="card-content">
       <div class="content">
         <header class="name">
@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   props: {
     name: {
@@ -27,6 +28,7 @@ export default {
     },
   },
   methods: {
+    ...mapActions(['SET_BACKGROUND_COLOR']),
     generationNumber(generation) {
       const generations = {
         "generation-i": "#1",
@@ -41,7 +43,8 @@ export default {
       };
       return generations[generation] || generations.default;
     },
-    handleClickCard(hash) {
+    handleClickCard(hash, color) {
+      this.SET_BACKGROUND_COLOR(color)
       this.$emit('generation-id', hash)
     },
   }
