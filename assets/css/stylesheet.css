@@ -4,6 +4,6 @@
 }
 
 .pokemon .pokemon-info .content .tabs li.is-active a {
-  border-bottom-color: #62B957;
-  color: #62B957;
+  border-bottom-color: #000;
+  color: #000;
 }

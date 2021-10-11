@@ -2,7 +2,7 @@
   <div class="pokemon-specie">
     <div class="pokemon">
       <div v-if="pokemon" class="card">
-        <header class="p-header">
+        <header class="p-header" :style="{ backgroundColor: GET_BACKGROUND_COLOR }">
           <h1 class="pokemon-name">{{ pokemon.name }} <span class="pokemon-number">#{{ pokemon.id | formatIdNumber }}</span></h1>
           <div class="card-image">
             <figure class="image poke-image">
@@ -36,6 +36,7 @@
 
               <b-tab-item v-if="training" label="Training">
                 <div class="poke-content">
+                  <p class="poke-desc is-6"><strong>Generation:</strong> {{ training.generation.name }}</p>
                   <p class="poke-desc is-6"><strong>Base happiness:</strong> {{ training.base_happiness }}</p>
                   <p class="poke-desc is-6">
                     <strong>Habitat:</strong> {{ training.habitat ? training.habitat.name : 'unknown' }}
@@ -85,6 +86,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: 'PokemonName',
   data() {
@@ -115,6 +117,7 @@ export default {
       this.training = pokemonSpecie.data
       this.evolution = evolutionChain.data
     } catch (error) {
+      this.$router.push('/')
       this.$buefy.toast.open({
         duration: 5000,
         message: `Não foi possivel retornar os dados! ${error.message}`,
@@ -134,6 +137,9 @@ export default {
         }
       ]
     }
+  },
+  computed: {
+    ...mapGetters(['GET_BACKGROUND_COLOR'])
   },
   methods: {
     handleEvolution() {

@@ -1,9 +1,10 @@
 <template>
   <div class="columns">
     <Card
-      v-for="generation in generationsList"
+      v-for="(generation, index) in generationsList"
       :key="generation.name"
       :name="generation.name"
+      :background-color="backgroundColors[index]"
       class="column"
       @generation-id="generationModal"
     />
@@ -15,7 +16,8 @@ import Generations from '@/components/Modal/Generations.vue'
 export default {
   data() {
     return {
-      generationsList: []
+      generationsList: [],
+      backgroundColors: ['#8BD674', '#58ABF6', '#B5B9C4', '#9F6E97', '#F78551', '#EBA8C3', '#F2CB55', '#8bbebe']
     }
   },
   head() {
@@ -39,6 +41,7 @@ export default {
         const { data } = await this.$services.generation.getGenerations()
         this.generationsList = data.results
       } catch (error) {
+        // urshifu
         this.$buefy.toast.open({
           duration: 5000,
           message: `Erro ao carregar dados: ${error.message}`,
