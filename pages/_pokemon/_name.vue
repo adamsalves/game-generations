@@ -98,7 +98,8 @@ export default {
       weaknesses: null,
       training: null,
       evolution: null,
-      pokeEvolution: null
+      pokeEvolution: null,
+      evolutionChainNames: []
     }
   },
   async fetch() {
@@ -144,33 +145,29 @@ export default {
     ...mapGetters(['GET_BACKGROUND_COLOR'])
   },
   methods: {
+    evolutionChain(evolution) {
+      if(!evolution.species) return false
+      this.evolutionChainNames.push(evolution.species.name)
+      evolution.evolves_to.forEach((evolvesTo) => {
+        return this.evolutionChain(evolvesTo)
+      })
+    },
     handleEvolution() {
-      if(this.activeTab === 3) {
+      if(this.activeTab === 3 && !this.pokeEvolution) {
         this.$nuxt.$loading.start()
-        const first = this.evolution.chain.species.name
-        const secondEvolution = this.evolution.chain.evolves_to.find((chain, index) => index === 0)
-        const thirdEvolution = secondEvolution !== undefined ? secondEvolution.evolves_to.find((chain, index) => index === 0) : ''
-        const second = secondEvolution ? secondEvolution.species.name : ''
-        const third = thirdEvolution ? thirdEvolution.species.name : ''
-
-        const pokemonPromisses = [first, second, third].map((name) => {
-          return name !== '' ? this.$services.specie.getPokemonByName(name) : null
+        this.evolutionChain(this.evolution.chain)
+        const pokemonPromisses = this.evolutionChainNames.map((name) => {
+          return this.$services.specie.getPokemonByName(name).then((poke) => {
+            return {
+              id: poke.data.id,
+              image_url: poke.data.sprites.other['official-artwork'].front_default,
+              specie: poke.data.name,
+              types: poke.data.types
+            }
+          })
         })
-
-        Promise.all(pokemonPromisses).then((poke) => {
-          const pokeEvolution = poke.map((p) => {
-            return p ? {
-              id: p.data.id,
-              image_url: p.data.sprites.other['official-artwork'].front_default,
-              specie: p.data.name,
-              types: p.data.types
-            } : null
-          })
-
-          this.pokeEvolution = pokeEvolution.filter((pe) => {
-            return pe !== null
-          })
-
+        Promise.all(pokemonPromisses).then((pokemon) => {
+          this.pokeEvolution = pokemon
           this.$nuxt.$loading.finish()
         }).catch((error) => {
           this.$nuxt.$loading.finish()
