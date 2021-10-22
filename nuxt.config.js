@@ -49,7 +49,12 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/eslint
     '@nuxtjs/eslint-module',
+    '@nuxt/image',
   ],
+
+  image: {
+    domains: ['https://raw.githubusercontent.com/']
+  },
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
