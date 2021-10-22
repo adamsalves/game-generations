@@ -1,14 +1,17 @@
 <template>
   <div class="pokemon-specie">
     <div class="pokemon">
-      <div v-if="pokemon" class="card">
-        <header class="p-header" :style="{ backgroundColor: GET_BACKGROUND_COLOR }">
+      <div class="card">
+        <header v-if="$fetchState.pending" class="p-header">
+          <b-skeleton width="100%" height="366px" :animated="true"></b-skeleton>
+        </header>
+        <header v-else class="p-header" :style="{ backgroundColor: GET_BACKGROUND_COLOR }">
           <h1 class="pokemon-name">
             <span v-if="training" class="pokemon-name-generation">{{ training.generation.name }}</span>
             {{ pokemon.name }} <span class="pokemon-number">#{{ pokemon.id | formatIdNumber }}</span></h1>
           <div class="card-image">
             <figure class="image poke-image">
-              <img :src="`${pokemon.sprites.other['official-artwork'].front_default}`" :alt="`Pokémon - ${pokemon.name}`">
+              <nuxt-img loading="lazy" :src="`${pokemon.sprites.other['official-artwork'].front_default}`" :alt="`Pokémon - ${pokemon.name}`" />
             </figure>
           </div>
         </header>
@@ -17,27 +20,33 @@
             <b-tabs v-model="activeTab" @input="handleEvolution">
               <b-tab-item label="About">
                 <div class="poke-content">
-                  <p class="poke-desc is-6"><strong>Specie:</strong> {{ pokemon.name }}</p>
-                  <p class="poke-desc is-6">
+                  <b-skeleton v-if="$fetchState.pending" width="15%" :animated="true"></b-skeleton>
+                  <p v-else class="poke-desc is-6"><strong>Specie:</strong> {{ pokemon.name }}</p>
+                  <b-skeleton v-if="$fetchState.pending" width="15%" :animated="true"></b-skeleton>
+                  <p v-else class="poke-desc is-6">
                     <strong>Weight:</strong> {{ pokemon.weight }}
                   </p>
-                  <p class="poke-desc is-6">
+                  <b-skeleton v-if="$fetchState.pending" width="15%" :animated="true"></b-skeleton>
+                  <p v-else class="poke-desc is-6">
                     <strong>Height:</strong> {{ pokemon.height }}
                   </p>
-                  <p class="poke-desc is-6">
+                  <b-skeleton v-if="$fetchState.pending" width="15%" :animated="true"></b-skeleton>
+                  <p v-else class="poke-desc is-6">
                     <strong>Type:</strong> <span v-for="type in pokemon.types" :key="type.type.name" class="tag is-warning">{{ type.type.name }}</span>
                   </p>
-                  <p class="poke-desc is-6">
+                  <b-skeleton v-if="$fetchState.pending" width="30%" :animated="true"></b-skeleton>
+                  <p v-else class="poke-desc is-6">
                     <strong>Abilities:</strong> <span v-for="ability in pokemon.abilities" :key="ability.ability.name" class="tag is-info">{{ ability.ability.name }}</span>
                   </p>
-                  <p v-if="weaknesses" class="poke-desc is-6">
+                  <b-skeleton v-if="$fetchState.pending" width="30%" :animated="true"></b-skeleton>
+                  <p v-else class="poke-desc is-6">
                     <strong>Weaknesses:</strong> <span v-for="weakness in weaknesses.damage_relations.double_damage_from" :key="weakness.name" class="tag is-danger">{{ weakness.name }}</span>
                   </p>
                 </div>
               </b-tab-item>
 
-              <b-tab-item v-if="training" label="Training">
-                <div class="poke-content">
+              <b-tab-item label="Training">
+                <div v-if="training" class="poke-content">
                   <p class="poke-desc is-6"><strong>Generation:</strong> {{ training.generation.name }}</p>
                   <p class="poke-desc is-6"><strong>Base happiness:</strong> {{ training.base_happiness }}</p>
                   <p class="poke-desc is-6">
@@ -63,7 +72,7 @@
               </b-tab-item>
 
               <b-tab-item label="Stats">
-                <div class="poke-stats">
+                <div v-if="pokemon" class="poke-stats">
                   <b-progress v-for="stat in pokemon.stats" :key="stat.stat.name" :value="stat.base_stat" size="is-medium" type="is-success" show-value>
                     {{ stat.stat.name }} {{ stat.base_stat }}%
                   </b-progress>
@@ -74,7 +83,7 @@
                 <div class="poke-evolution">
                   <div v-for="poke in pokeEvolution" :key="poke.id" class="poke-specie">
                     <p class="poke-specie-name">{{ poke.specie }} - #{{ poke.id | formatIdNumber }}</p>
-                    <img :src="poke.image_url" :alt="poke.specie" class="poke-specie-image">
+                    <nuxt-img loading="lazy" :src="poke.image_url" :alt="poke.specie" class="poke-specie-image" />
                     <span v-for="type in poke.types" :key="type.type.name" class="tag is-warning">{{ type.type.name }}</span>
                   </div>
                 </div>
@@ -186,7 +195,7 @@ export default {
 
 <style scoped>
 .pokemon .p-header {
-  background: #8BBE8A;
+  background: #dbdbdb;
 }
 
 .pokemon .p-header .pokemon-name {
