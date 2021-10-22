@@ -83,8 +83,7 @@
                 <div class="poke-evolution">
                   <div v-for="poke in pokeEvolution" :key="poke.id" class="poke-specie">
                     <p class="poke-specie-name">{{ poke.specie }} - #{{ poke.id | formatIdNumber }}</p>
-                    <b-skeleton v-if="loading" width="150px" height="150px" :animated="true" />
-                    <b-image :src="poke.image_url" :alt="poke.specie" class="poke-specie-image" lazy @load="loadImage" />
+                    <b-image :src="poke.image_url" :alt="poke.specie" class="poke-specie-image" lazy />
                     <span v-for="type in poke.types" :key="type.type.name" class="tag is-warning">{{ type.type.name }}</span>
                   </div>
                 </div>
@@ -156,9 +155,6 @@ export default {
     ...mapGetters(['GET_BACKGROUND_COLOR'])
   },
   methods: {
-    loadImage() {
-      this.loading = false
-    },
     evolutionChain(evolution) {
       if(!evolution.species) return false
       this.evolutionChainNames.push(evolution.species.name)
