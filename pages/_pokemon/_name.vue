@@ -81,6 +81,7 @@
 
               <b-tab-item label="Evolution">
                 <div class="poke-evolution">
+                  <div v-if="!pokeEvolution" class="no-poke-evolution">Parece que não temos evolução para esse Pokémon :(</div>
                   <div v-for="poke in pokeEvolution" :key="poke.id" class="poke-specie">
                     <p class="poke-specie-name">{{ poke.specie }} - #{{ poke.id | formatIdNumber }}</p>
                     <b-image :src="poke.image_url" :alt="poke.specie" class="poke-specie-image" lazy />
@@ -246,6 +247,10 @@ export default {
   justify-content: space-around;
   align-content: center;
   flex-wrap: wrap;
+}
+
+.pokemon .pokemon-info .poke-evolution .no-poke-evolution {
+  margin-top: 2rem;
 }
 
 .pokemon .pokemon-info .poke-specie {
