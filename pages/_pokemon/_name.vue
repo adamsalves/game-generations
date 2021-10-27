@@ -5,13 +5,27 @@
         <header v-if="$fetchState.pending" class="p-header">
           <b-skeleton width="100%" height="366px" :animated="true" />
         </header>
-        <header v-else class="p-header" :style="{ backgroundColor: GET_BACKGROUND_COLOR }">
+        <header
+          v-else
+          class="p-header"
+          :style="{ backgroundColor: GET_BACKGROUND_COLOR }"
+        >
           <h1 class="pokemon-name">
-            <span v-if="training" class="pokemon-name-generation">{{ training.generation.name }}</span>
-            {{ pokemon.name }} <span class="pokemon-number">#{{ pokemon.id | formatIdNumber }}</span></h1>
+            <span v-if="training" class="pokemon-name-generation">{{
+              training.generation.name
+            }}</span>
+            {{ pokemon.name }}
+            <span class="pokemon-number"
+              >#{{ pokemon.id | formatIdNumber }}</span
+            >
+          </h1>
           <div class="card-image">
             <figure class="image poke-image">
-              <b-image :src="`${pokemon.sprites.other['official-artwork'].front_default}`" :alt="`Pokémon - ${pokemon.name}`" lazy />
+              <b-image
+                :src="`${pokemon.sprites.other['official-artwork'].front_default}`"
+                :alt="`Pokémon - ${pokemon.name}`"
+                lazy
+              />
             </figure>
           </div>
         </header>
@@ -20,51 +34,113 @@
             <b-tabs v-model="activeTab" @input="handleEvolution">
               <b-tab-item label="About">
                 <div class="poke-content">
-                  <b-skeleton v-if="$fetchState.pending" width="15%" :animated="true" />
-                  <p v-else class="poke-desc is-6"><strong>Specie:</strong> {{ pokemon.name }}</p>
-                  <b-skeleton v-if="$fetchState.pending" width="15%" :animated="true" />
+                  <b-skeleton
+                    v-if="$fetchState.pending"
+                    width="15%"
+                    :animated="true"
+                  />
+                  <p v-else class="poke-desc is-6">
+                    <strong>Specie:</strong> {{ pokemon.name }}
+                  </p>
+                  <b-skeleton
+                    v-if="$fetchState.pending"
+                    width="15%"
+                    :animated="true"
+                  />
                   <p v-else class="poke-desc is-6">
                     <strong>Weight:</strong> {{ pokemon.weight }}
                   </p>
-                  <b-skeleton v-if="$fetchState.pending" width="15%" :animated="true" />
+                  <b-skeleton
+                    v-if="$fetchState.pending"
+                    width="15%"
+                    :animated="true"
+                  />
                   <p v-else class="poke-desc is-6">
                     <strong>Height:</strong> {{ pokemon.height }}
                   </p>
-                  <b-skeleton v-if="$fetchState.pending" width="15%" :animated="true" />
+                  <b-skeleton
+                    v-if="$fetchState.pending"
+                    width="15%"
+                    :animated="true"
+                  />
                   <p v-else class="poke-desc is-6">
-                    <strong>Type:</strong> <span v-for="type in pokemon.types" :key="type.type.name" class="tag is-warning">{{ type.type.name }}</span>
+                    <strong>Type:</strong>
+                    <span
+                      v-for="type in pokemon.types"
+                      :key="type.type.name"
+                      class="tag is-warning"
+                      >{{ type.type.name }}</span
+                    >
                   </p>
-                  <b-skeleton v-if="$fetchState.pending" width="30%" :animated="true" />
+                  <b-skeleton
+                    v-if="$fetchState.pending"
+                    width="30%"
+                    :animated="true"
+                  />
                   <p v-else class="poke-desc is-6">
-                    <strong>Abilities:</strong> <span v-for="ability in pokemon.abilities" :key="ability.ability.name" class="tag is-info">{{ ability.ability.name }}</span>
+                    <strong>Abilities:</strong>
+                    <span
+                      v-for="ability in pokemon.abilities"
+                      :key="ability.ability.name"
+                      class="tag is-info"
+                      >{{ ability.ability.name }}</span
+                    >
                   </p>
-                  <b-skeleton v-if="$fetchState.pending" width="30%" :animated="true" />
+                  <b-skeleton
+                    v-if="$fetchState.pending"
+                    width="30%"
+                    :animated="true"
+                  />
                   <p v-else class="poke-desc is-6">
-                    <strong>Weaknesses:</strong> <span v-for="weakness in weaknesses.damage_relations.double_damage_from" :key="weakness.name" class="tag is-danger">{{ weakness.name }}</span>
+                    <strong>Weaknesses:</strong>
+                    <span
+                      v-for="weakness in weaknesses.damage_relations
+                        .double_damage_from"
+                      :key="weakness.name"
+                      class="tag is-danger"
+                      >{{ weakness.name }}</span
+                    >
                   </p>
                 </div>
               </b-tab-item>
 
               <b-tab-item label="Training">
                 <div v-if="training" class="poke-content">
-                  <p class="poke-desc is-6"><strong>Generation:</strong> {{ training.generation.name }}</p>
-                  <p class="poke-desc is-6"><strong>Base happiness:</strong> {{ training.base_happiness }}</p>
                   <p class="poke-desc is-6">
-                    <strong>Habitat:</strong> {{ training.habitat ? training.habitat.name : 'unknown' }}
+                    <strong>Generation:</strong> {{ training.generation.name }}
+                  </p>
+                  <p class="poke-desc is-6">
+                    <strong>Base happiness:</strong>
+                    {{ training.base_happiness }}
+                  </p>
+                  <p class="poke-desc is-6">
+                    <strong>Habitat:</strong>
+                    {{ training.habitat ? training.habitat.name : 'unknown' }}
                   </p>
                   <p class="poke-desc is-6">
                     <strong>Capture rate:</strong> {{ training.capture_rate }}
                   </p>
                   <p class="poke-desc is-6">
-                    <strong>Growth rate:</strong> {{ training.growth_rate ? training.growth_rate.name : 'unknown' }}
+                    <strong>Growth rate:</strong>
+                    {{
+                      training.growth_rate
+                        ? training.growth_rate.name
+                        : 'unknown'
+                    }}
                   </p>
                   <p class="poke-desc is-6">
-                    <strong>Shape:</strong> {{ training.shape ? training.shape.name : '' }}
+                    <strong>Shape:</strong>
+                    {{ training.shape ? training.shape.name : '' }}
                   </p>
                   <p class="poke-desc is-6">
                     <strong>Egg groups:</strong>
                     <span v-if="training.egg_groups.length > 0">
-                      <span v-for="group in training.egg_groups" :key="group.name" class="tag is-link">{{ group.name }}</span>
+                      <span
+                        v-for="group in training.egg_groups"
+                        :key="group.name"
+                        class="tag is-link"
+                        >{{ group.name }}</span
+                      >
                     </span>
                     <span v-else class="tag is-link">unknown</span>
                   </p>
@@ -73,7 +149,14 @@
 
               <b-tab-item label="Stats">
                 <div v-if="pokemon" class="poke-stats">
-                  <b-progress v-for="stat in pokemon.stats" :key="stat.stat.name" :value="stat.base_stat" size="is-medium" type="is-success" show-value>
+                  <b-progress
+                    v-for="stat in pokemon.stats"
+                    :key="stat.stat.name"
+                    :value="stat.base_stat"
+                    size="is-medium"
+                    type="is-success"
+                    show-value
+                  >
                     {{ stat.stat.name }} {{ stat.base_stat }}%
                   </b-progress>
                 </div>
@@ -81,11 +164,29 @@
 
               <b-tab-item label="Evolution">
                 <div class="poke-evolution">
-                  <div v-if="!pokeEvolution" class="no-poke-evolution">Parece que não temos evolução para esse Pokémon :(</div>
-                  <div v-for="poke in pokeEvolution" :key="poke.id" class="poke-specie">
-                    <p class="poke-specie-name">{{ poke.specie }} - #{{ poke.id | formatIdNumber }}</p>
-                    <b-image :src="poke.image_url" :alt="poke.specie" class="poke-specie-image" lazy />
-                    <span v-for="type in poke.types" :key="type.type.name" class="tag is-warning">{{ type.type.name }}</span>
+                  <div v-if="error" class="no-poke-evolution">
+                    {{ error }}
+                  </div>
+                  <div
+                    v-for="poke in pokeEvolution"
+                    :key="poke.id"
+                    class="poke-specie"
+                  >
+                    <p class="poke-specie-name">
+                      {{ poke.specie }} - #{{ poke.id | formatIdNumber }}
+                    </p>
+                    <b-image
+                      :src="poke.image_url"
+                      :alt="poke.specie"
+                      class="poke-specie-image"
+                      lazy
+                    />
+                    <span
+                      v-for="type in poke.types"
+                      :key="type.type.name"
+                      class="tag is-warning"
+                      >{{ type.type.name }}</span
+                    >
                   </div>
                 </div>
               </b-tab-item>
@@ -110,7 +211,8 @@ export default {
       evolution: null,
       pokeEvolution: null,
       evolutionChainNames: [],
-      loading: true
+      loading: true,
+      error: null,
     }
   },
   async fetch() {
@@ -121,9 +223,13 @@ export default {
       const type = poke.data.types.find((type, index) => index === 0)
       const pokeStats = await this.$services.type.getTypeByName(type.type.name)
 
-      const pokemonSpecie = await this.$services.pokemonSpecie.getPokemonSpecieByName(name)
+      const pokemonSpecie =
+        await this.$services.pokemonSpecie.getPokemonSpecieByName(name)
 
-      const id = pokemonSpecie.data.evolution_chain.url.replace('https://pokeapi.co/api/v2/evolution-chain/', '')
+      const id = pokemonSpecie.data.evolution_chain.url.replace(
+        'https://pokeapi.co/api/v2/evolution-chain/',
+        ''
+      )
       const evolutionChain = await this.$services.evolution.getEvolution(id)
 
       this.pokemon = poke.data
@@ -136,59 +242,67 @@ export default {
         duration: 5000,
         message: `Não foi possivel retornar os dados! ${error.message}`,
         position: 'is-bottom',
-        type: 'is-danger'
+        type: 'is-danger',
       })
     }
   },
   head() {
     return {
-      title: `${this.pokemon ? this.pokemon.name : ''} - Pokémon - Game Generations'`,
+      title: `${
+        this.pokemon ? this.pokemon.name : ''
+      } - Pokémon - Game Generations'`,
       meta: [
         {
           hid: 'description',
           name: 'description',
-          content: `${this.pokemon ? this.pokemon.name : ''} - Pokémon - Game Generations'`,
-        }
-      ]
+          content: `${
+            this.pokemon ? this.pokemon.name : ''
+          } - Pokémon - Game Generations'`,
+        },
+      ],
     }
   },
   computed: {
-    ...mapGetters(['GET_BACKGROUND_COLOR'])
+    ...mapGetters(['GET_BACKGROUND_COLOR']),
   },
   methods: {
     evolutionChain(evolution) {
-      if(!evolution.species) return false
+      if (!evolution.species) return false
       this.evolutionChainNames.push(evolution.species.name)
       evolution.evolves_to.forEach((evolvesTo) => {
         return this.evolutionChain(evolvesTo)
       })
     },
     handleEvolution() {
-      if(this.activeTab === 3 && !this.pokeEvolution) {
+      if (this.activeTab === 3 && !this.pokeEvolution) {
         this.$nuxt.$loading.start()
         this.evolutionChain(this.evolution.chain)
         const pokemonPromisses = this.evolutionChainNames.map((name) => {
           return this.$services.specie.getPokemonByName(name).then((poke) => {
             return {
               id: poke.data.id,
-              image_url: poke.data.sprites.other['official-artwork'].front_default,
+              image_url:
+                poke.data.sprites.other['official-artwork'].front_default,
               specie: poke.data.name,
-              types: poke.data.types
+              types: poke.data.types,
             }
           })
         })
-        Promise.all(pokemonPromisses).then((pokemon) => {
-          this.pokeEvolution = pokemon
-          this.$nuxt.$loading.finish()
-        }).catch((error) => {
-          this.$nuxt.$loading.finish()
-          this.$buefy.toast.open({
-            duration: 5000,
-            message: `Não foi possivel retornar os dados! ${error.message}`,
-            position: 'is-bottom',
-            type: 'is-danger'
+        Promise.all(pokemonPromisses)
+          .then((pokemon) => {
+            this.pokeEvolution = pokemon
+            this.$nuxt.$loading.finish()
           })
-        })
+          .catch((error) => {
+            this.$nuxt.$loading.finish()
+            this.$buefy.toast.open({
+              duration: 5000,
+              message: `Não foi possivel retornar os dados! ${error.message}`,
+              position: 'is-bottom',
+              type: 'is-danger',
+            })
+            this.error = 'Parece que não temos evolução para esse Pokémon :('
+          })
       }
     },
   },
@@ -223,7 +337,8 @@ export default {
     }
   }
   .pokemon-info {
-    font-family: Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen,
+      Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     .poke-content {
       .poke-desc {
         margin: 10px 0;
@@ -240,12 +355,12 @@ export default {
       justify-content: space-around;
       align-content: center;
       flex-wrap: wrap;
+      .no-poke-evolution {
+        margin-top: 2rem;
+      }
       .poke-specie {
         margin: 25px;
         text-align: center;
-        .no-poke-evolution {
-          margin-top: 2rem;
-        }
         .poke-specie-image {
           display: block;
           width: 150px;
@@ -264,5 +379,4 @@ export default {
     }
   }
 }
-
 </style>
