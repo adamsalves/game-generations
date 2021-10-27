@@ -169,20 +169,22 @@
                   </div>
                   <div
                     v-for="poke in pokeEvolution"
-                    :key="poke.id"
+                    :key="poke.value.id"
                     class="poke-specie"
                   >
                     <p class="poke-specie-name">
-                      {{ poke.specie }} - #{{ poke.id | formatIdNumber }}
+                      {{ poke.value.specie }} - #{{
+                        poke.value.id | formatIdNumber
+                      }}
                     </p>
                     <b-image
-                      :src="poke.image_url"
-                      :alt="poke.specie"
+                      :src="poke.value.image_url"
+                      :alt="poke.value.specie"
                       class="poke-specie-image"
                       lazy
                     />
                     <span
-                      v-for="type in poke.types"
+                      v-for="type in poke.value.types"
                       :key="type.type.name"
                       class="tag is-warning"
                       >{{ type.type.name }}</span
@@ -288,9 +290,11 @@ export default {
             }
           })
         })
-        Promise.all(pokemonPromisses)
+        Promise.allSettled(pokemonPromisses)
           .then((pokemon) => {
-            this.pokeEvolution = pokemon
+            this.pokeEvolution = pokemon.filter((poke) => {
+              return poke.status === 'fulfilled'
+            })
             this.$nuxt.$loading.finish()
           })
           .catch((error) => {
