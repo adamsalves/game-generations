@@ -68,9 +68,14 @@ export default {
     box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 44%),
       0 0px 0 1px rgb(10 10 10 / 70%);
     .content {
-      .generation-number,
-      .content-name,
-      .generation-title {
+      .name {
+        .content-name,
+        .generation-title {
+          color: rgba(23, 23, 27, 1);
+          transition: 0.6s;
+        }
+      }
+      .generation-number {
         color: rgba(23, 23, 27, 1);
         transition: 0.6s;
       }
