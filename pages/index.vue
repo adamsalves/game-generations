@@ -63,13 +63,13 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .columns {
   flex-flow: wrap;
   margin-left: 0;
   margin-right: 0;
-}
-.card {
-  margin: 35px;
+  .card {
+    margin: 35px;
+  }
 }
 </style>

@@ -11,7 +11,7 @@
 export default {}
 </script>
 
-<style>
+<style lang="scss">
 html, body {
   font-family: 'Exo', 'Source Sans Pro', -apple-system,
     BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -33,12 +33,12 @@ html, body {
 .poke-app {
   background-image: url('assets/images/container_bg.png');
   background-repeat: repeat;
+  .main {
+    max-width: 960px;
+    margin: 15px auto;
+    min-height: 100vh;
+    padding-top: 100px;
+  }
 }
 
-.main {
-  max-width: 960px;
-  margin: 15px auto;
-  min-height: 100vh;
-  padding-top: 100px;
-}
 </style>
