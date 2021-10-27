@@ -1,29 +1,46 @@
 <template>
   <div v-if="generation" class="content poke-generation">
-    <h1 class="generation-title">Generation #{{ generation.id }} <span class="tag is-warning">{{ generation.name }}</span></h1>
+    <h1 class="generation-title">
+      Generation #{{ generation.id }}
+      <span class="tag is-warning">{{ generation.name }}</span>
+    </h1>
     <div class="generation-info block">
       <div class="generation-region">
-        <strong>{{ generation.pokemon_species.length }}</strong> Pokémons in the <strong>{{ generation.main_region.name }}</strong> region <i><font-awesome-icon :icon="['fa', 'globe']"/></i>
+        <strong>{{ generation.pokemon_species.length }}</strong> Pokémons in the
+        <strong>{{ generation.main_region.name }}</strong> region
+        <i><font-awesome-icon :icon="['fa', 'globe']" /></i>
       </div>
 
-      <div v-if="generation.pokemon_species.length > 0" class="generation-species">
+      <div
+        v-if="generation.pokemon_species.length > 0"
+        class="generation-species"
+      >
         <h2>Species</h2>
-          <b-autocomplete
-            v-model="name"
-            placeholder="Search for Pokémon name"
-            :keep-first="keepFirst"
-            :open-on-focus="openOnFocus"
-            :data="pokemonsfiltered"
-            field="name"
-            :clearable="clearable"
-            @select="option => (selected = option)"
-          />
+        <b-autocomplete
+          v-model="name"
+          placeholder="Search for Pokémon name"
+          :keep-first="keepFirst"
+          :open-on-focus="openOnFocus"
+          :data="pokemonsfiltered"
+          field="name"
+          :clearable="clearable"
+          @select="(option) => (selected = option)"
+        />
 
-        <b-carousel :indicator="false" :arrow-hover="false" :pause-hover="false">
-          <b-carousel-item v-for="specie in pokemonsfiltered" :key="specie.name">
+        <b-carousel
+          :indicator="false"
+          :arrow-hover="false"
+          :pause-hover="false"
+        >
+          <b-carousel-item
+            v-for="specie in pokemonsfiltered"
+            :key="specie.name"
+          >
             <section class="is-info">
               <div class="hero-body has-text-centered">
-                <h1 class="title" @click="handleClickSpecie(specie.name)">{{ specie.name }}</h1>
+                <h1 class="title" @click="handleClickSpecie(specie.name)">
+                  {{ specie.name }}
+                </h1>
               </div>
             </section>
           </b-carousel-item>
@@ -32,9 +49,13 @@
 
       <div v-if="generation.types.length > 0" class="generation-type">
         <h3>Types</h3>
-        <span v-for="type in generation.types" :key="type.name" class="tag is-light">{{ type.name }}</span>
+        <span
+          v-for="type in generation.types"
+          :key="type.name"
+          class="tag is-light"
+          >{{ type.name }}</span
+        >
       </div>
-
     </div>
   </div>
 </template>
@@ -44,8 +65,8 @@ export default {
   props: {
     id: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
@@ -54,7 +75,7 @@ export default {
       openOnFocus: false,
       name: '',
       selected: null,
-      clearable: true
+      clearable: true,
     }
   },
   async fetch() {
@@ -68,21 +89,21 @@ export default {
         duration: 5000,
         message: `Não foi possivel retornar os dados! ${error.message}`,
         position: 'is-bottom',
-        type: 'is-danger'
+        type: 'is-danger',
       })
     }
   },
-   computed: {
+  computed: {
     pokemonsfiltered() {
-      return this.generation.pokemon_species.filter(option => {
-          return (
-            option.name
-              .toString()
-              .toLowerCase()
-              .includes(this.name.toLowerCase()) > 0
-          )
+      return this.generation.pokemon_species.filter((option) => {
+        return (
+          option.name
+            .toString()
+            .toLowerCase()
+            .includes(this.name.toLowerCase()) > 0
+        )
       })
-    }
+    },
   },
   methods: {
     handleClickSpecie(name) {
@@ -90,75 +111,63 @@ export default {
       this.$router.push({
         path: `/pokemon/${name}`,
       })
-    }
-  }
+    },
+  },
 }
 </script>
 
-<style>
+<style lang="scss">
 .poke-generation {
-  font-family: 'Roboto', 'Source Sans Pro', -apple-system,
-    BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Roboto', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
+    'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
   max-width: 100%;
   padding: 20px;
   border-radius: 15px;
   background: #fff;
   margin: 0 10px;
-}
-
-.poke-generation .generation-title {
-  font-size: 2rem;
-  margin-bottom: .5rem;
-}
-
-.poke-generation .generation-region {
-  margin-bottom: 40px;
-}
-
-.poke-generation .generation-species .is-info {
-  background-image: url('assets/images/poke_ball.svg');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 10rem;
-}
-
-.poke-generation .generation-species .title {
-  color: #fff;
-  text-transform: capitalize;
-  font-size: 2.5rem;
-  text-shadow:
-    1px  1px 2px black,
-    1px -1px 2px black,
-   -1px  1px 2px black,
-   -1px -1px 2px black;
-  cursor: pointer;
-  margin: 0 20px;
-}
-
-.poke-generation .generation-species .title:hover {
-  color: #000;
-  text-shadow:
-    1px  1px 2px white,
-    1px -1px 2px white,
-   -1px  1px 2px white,
-   -1px -1px 2px white;
-   transition: .5s;
-}
-
-.poke-generation .generation-species .carousel {
-  margin-top: 20px;
-}
-
-.poke-generation .generation-title .tag {
-  vertical-align: middle;
-}
-
-.poke-generation .generation-type {
-  margin-top: 60px;
-}
-
-.poke-generation .generation-type .tag {
-  margin: 3px;
+  .generation-title {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    .tag {
+      vertical-align: middle;
+    }
+  }
+  .generation-region {
+    margin-bottom: 40px;
+  }
+  .generation-species {
+    .is-info {
+      background-image: url('assets/images/poke_ball.svg');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 10rem;
+    }
+    .title {
+      color: #fff;
+      text-transform: capitalize;
+      font-size: 2.5rem;
+      text-shadow: 1px 1px 2px black, 1px -1px 2px black, -1px 1px 2px black,
+        -1px -1px 2px black;
+      cursor: pointer;
+      margin: 0 20px;
+      &:hover {
+        color: #000;
+        text-shadow: 1px 1px 2px white, 1px -1px 2px white, -1px 1px 2px white,
+          -1px -1px 2px white;
+        transition: 0.5s;
+      }
+    }
+    .carousel {
+      margin-top: 25px;
+      margin-bottom: 15px;
+    }
+  }
+  .generation-type {
+    margin-top: 30px;
+    .tag {
+      margin: 3px;
+    }
+  }
 }
 </style>
 

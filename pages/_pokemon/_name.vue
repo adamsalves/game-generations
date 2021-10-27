@@ -195,83 +195,74 @@ export default {
 }
 </script>
 
-<style scoped>
-.pokemon .p-header {
-  background: #dbdbdb;
+<style lang="scss" scoped>
+.pokemon {
+  .p-header {
+    background: #dbdbdb;
+    .pokemon-name {
+      color: #fff;
+      font-size: 3rem;
+      font-weight: 700;
+      text-align: center;
+      padding-top: 20px;
+      text-transform: capitalize;
+    }
+    .pokemon-name-generation {
+      text-transform: none;
+      display: block;
+      font-size: 1rem;
+      color: rgba(23, 23, 27, 0.5);
+    }
+    .card-image {
+      display: flex;
+      justify-content: center;
+    }
+    .poke-image {
+      width: 250px;
+      height: 250px;
+    }
+  }
+  .pokemon-info {
+    font-family: Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    .poke-content {
+      .poke-desc {
+        margin: 10px 0;
+        .tag {
+          margin-right: 5px;
+        }
+      }
+    }
+    .poke-stats {
+      margin-top: 10px;
+    }
+    .poke-evolution {
+      display: flex;
+      justify-content: space-around;
+      align-content: center;
+      flex-wrap: wrap;
+      .poke-specie {
+        margin: 25px;
+        text-align: center;
+        .no-poke-evolution {
+          margin-top: 2rem;
+        }
+        .poke-specie-image {
+          display: block;
+          width: 150px;
+          height: 150px;
+          margin: 0;
+        }
+        .tag {
+          margin-top: 10px;
+          margin-right: 5px;
+        }
+        .poke-specie-name {
+          text-transform: capitalize;
+          font-weight: 700;
+        }
+      }
+    }
+  }
 }
 
-.pokemon .p-header .pokemon-name {
-  color: #fff;
-  font-size: 3rem;
-  font-weight: 700;
-  text-align: center;
-  padding-top: 20px;
-  text-transform: capitalize;
-}
-
-.pokemon .p-header .pokemon-name-generation {
-  text-transform: none;
-  display: block;
-  font-size: 1rem;
-  color: rgba(23, 23, 27, 0.5);
-}
-
-.pokemon .card-image {
-  display: flex;
-  justify-content: center;
-}
-
-.pokemon .poke-image {
-  width: 250px;
-  height: 250px;
-}
-
-.pokemon .pokemon-info {
-  font-family: Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-}
-
-.pokemon .pokemon-info .poke-content .poke-desc {
-  margin: 10px 0;
-}
-
-.pokemon .pokemon-info .poke-content .tag {
-  margin-right: 5px;
-}
-
-.pokemon .pokemon-info .poke-stats {
-  margin-top: 10px;
-}
-
-.pokemon .pokemon-info .poke-evolution {
-  display: flex;
-  justify-content: space-around;
-  align-content: center;
-  flex-wrap: wrap;
-}
-
-.pokemon .pokemon-info .poke-evolution .no-poke-evolution {
-  margin-top: 2rem;
-}
-
-.pokemon .pokemon-info .poke-specie {
-  margin: 25px;
-  text-align: center;
-}
-
-.pokemon .pokemon-info .poke-specie-image {
-  display: block;
-  width: 150px;
-  height: 150px;
-  margin: 0;
-}
-
-.pokemon .pokemon-info .poke-specie .tag {
-  margin-top: 10px;
-  margin-right: 5px;
-}
-
-.pokemon .pokemon-info .poke-specie-name {
-  text-transform: capitalize;
-  font-weight: 700;
-}
 </style>
