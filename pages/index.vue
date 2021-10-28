@@ -17,7 +17,16 @@ export default {
   data() {
     return {
       generationsList: [],
-      backgroundColors: ['#8BD674', '#58ABF6', '#B5B9C4', '#9F6E97', '#F78551', '#EBA8C3', '#F2CB55', '#8bbebe']
+      backgroundColors: [
+        '#8BD674',
+        '#58ABF6',
+        '#B5B9C4',
+        '#9F6E97',
+        '#F78551',
+        '#EBA8C3',
+        '#F2CB55',
+        '#8BBEBE',
+      ],
     }
   },
   head() {
@@ -27,9 +36,10 @@ export default {
         {
           hid: 'description',
           name: 'description',
-          content: 'Pokémon - Game Generations - Lista de gerações de Pokémons e seus detalhes'
-        }
-      ]
+          content:
+            'Pokémon - Game Generations - Lista de gerações de Pokémons e seus detalhes',
+        },
+      ],
     }
   },
   mounted() {
@@ -45,7 +55,7 @@ export default {
           duration: 5000,
           message: `Erro ao carregar dados: ${error.message}`,
           position: 'is-bottom',
-          type: 'is-danger'
+          type: 'is-danger',
         })
       }
     },
@@ -56,10 +66,10 @@ export default {
         customClass: 'generation-modal',
         props: {
           id: hash,
-        }
+        },
       })
     },
-  }
+  },
 }
 </script>
 
