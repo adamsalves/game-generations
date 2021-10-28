@@ -28,6 +28,7 @@
         />
 
         <b-carousel
+          v-if="pokemonsfiltered.length > 0"
           :indicator="false"
           :arrow-hover="false"
           :pause-hover="false"
