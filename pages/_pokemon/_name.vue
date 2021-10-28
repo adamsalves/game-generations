@@ -176,6 +176,13 @@
                       {{ poke.value.specie }} - #{{
                         poke.value.id | formatIdNumber
                       }}
+                      <NuxtLink
+                        v-if="pokemon.name !== poke.value.specie"
+                        class="evolution-link"
+                        :to="`/pokemon/${poke.value.specie}`"
+                      >
+                        <font-awesome-icon :icon="['fas', 'link']" />
+                      </NuxtLink>
                     </p>
                     <b-image
                       :src="poke.value.image_url"
@@ -378,6 +385,16 @@ export default {
         .poke-specie-name {
           text-transform: capitalize;
           font-weight: 700;
+          .evolution-link {
+            margin-left: 5px;
+            color: #363636;
+            background: #ddd;
+            border-radius: 50%;
+            padding: 5px;
+            &:hover {
+              color: #000;
+            }
+          }
         }
       }
     }
