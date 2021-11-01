@@ -23,6 +23,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'PokeHeader',
   props: {
@@ -30,18 +32,13 @@ export default {
       type: Boolean,
       required: true,
     },
-    background: {
-      type: String,
-      required: true,
-    },
-    training: {
-      type: Object,
-      required: true,
-    },
-    pokemon: {
-      type: Object,
-      required: true,
-    },
+  },
+  computed: {
+    ...mapGetters({
+      pokemon: 'GET_POKEMON',
+      training: 'GET_TRAINING',
+      background: 'GET_BACKGROUND_COLOR',
+    }),
   },
 }
 </script>

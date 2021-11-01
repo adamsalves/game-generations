@@ -2,85 +2,12 @@
   <div class="pokemon-specie">
     <div class="pokemon">
       <div class="card">
-        <PokeHeader
-          :background="GET_BACKGROUND_COLOR"
-          :pending="$fetchState.pending"
-          :training="training"
-          :pokemon="pokemon"
-        />
+        <PokeHeader :pending="$fetchState.pending" />
         <div class="card-content pokemon-info">
           <div class="content">
             <b-tabs v-model="activeTab" @input="handleEvolution">
               <b-tab-item label="About">
-                <div class="poke-content">
-                  <b-skeleton
-                    v-if="$fetchState.pending"
-                    width="15%"
-                    :animated="true"
-                  />
-                  <p v-else class="poke-desc is-6">
-                    <strong>Specie:</strong> {{ pokemon.name }}
-                  </p>
-                  <b-skeleton
-                    v-if="$fetchState.pending"
-                    width="15%"
-                    :animated="true"
-                  />
-                  <p v-else class="poke-desc is-6">
-                    <strong>Weight:</strong> {{ pokemon.weight }}
-                  </p>
-                  <b-skeleton
-                    v-if="$fetchState.pending"
-                    width="15%"
-                    :animated="true"
-                  />
-                  <p v-else class="poke-desc is-6">
-                    <strong>Height:</strong> {{ pokemon.height }}
-                  </p>
-                  <b-skeleton
-                    v-if="$fetchState.pending"
-                    width="15%"
-                    :animated="true"
-                  />
-                  <p v-else class="poke-desc is-6">
-                    <strong>Type:</strong>
-                    <span
-                      v-for="type in pokemon.types"
-                      :key="type.type.name"
-                      class="tag is-warning"
-                      >{{ type.type.name }}</span
-                    >
-                  </p>
-                  <b-skeleton
-                    v-if="$fetchState.pending"
-                    width="30%"
-                    :animated="true"
-                  />
-                  <p v-else class="poke-desc is-6">
-                    <strong>Abilities:</strong>
-                    <span
-                      v-for="ability in pokemon.abilities"
-                      :key="ability.ability.name"
-                      class="tag is-info"
-                      >{{ ability.ability.name }}</span
-                    >
-                  </p>
-                  <b-skeleton
-                    v-if="$fetchState.pending"
-                    width="30%"
-                    :animated="true"
-                  />
-                  <p v-else class="poke-desc is-6">
-                    <strong>Weaknesses:</strong>
-                    <span
-                      v-for="weakness in weaknesses.damage_relations
-                        .double_damage_from"
-                      :key="weakness.name"
-                      class="tag is-danger"
-                      >{{ weakness.name }}</span
-                    >
-                  </p>
-                </div>
+                <PokeAbout :pending="$fetchState.pending" />
               </b-tab-item>
 
               <b-tab-item label="Training">
@@ -187,12 +114,13 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions } from 'vuex'
 import PokeHeader from '@/components/Pokemon/PokeHeader'
+import PokeAbout from '@/components/Pokemon/PokeAbout'
 
 export default {
   name: 'PokemonName',
-  components: { PokeHeader },
+  components: { PokeHeader, PokeAbout },
   data() {
     return {
       activeTab: 0,
@@ -224,8 +152,11 @@ export default {
       const evolutionChain = await this.$services.evolution.getEvolution(id)
 
       this.pokemon = poke.data
+      this.SET_POKEMON(poke.data)
       this.weaknesses = pokeStats.data
+      this.SET_WEAKNESSES(pokeStats.data)
       this.training = pokemonSpecie.data
+      this.SET_TRAINING(pokemonSpecie.data)
       this.evolution = evolutionChain.data
     } catch (error) {
       this.$router.push('/')
@@ -253,10 +184,8 @@ export default {
       ],
     }
   },
-  computed: {
-    ...mapGetters(['GET_BACKGROUND_COLOR']),
-  },
   methods: {
+    ...mapActions(['SET_POKEMON', 'SET_TRAINING', 'SET_WEAKNESSES']),
     evolutionChain(evolution) {
       if (!evolution.species) return false
       this.evolutionChainNames.push(evolution.species.name)
@@ -307,14 +236,6 @@ export default {
   .pokemon-info {
     font-family: Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen,
       Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    .poke-content {
-      .poke-desc {
-        margin: 10px 0;
-        .tag {
-          margin-right: 5px;
-        }
-      }
-    }
     .poke-stats {
       margin-top: 10px;
     }
