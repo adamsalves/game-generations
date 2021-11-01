@@ -2,33 +2,12 @@
   <div class="pokemon-specie">
     <div class="pokemon">
       <div class="card">
-        <header v-if="$fetchState.pending" class="p-header">
-          <b-skeleton width="100%" height="366px" :animated="true" />
-        </header>
-        <header
-          v-else
-          class="p-header"
-          :style="{ backgroundColor: GET_BACKGROUND_COLOR }"
-        >
-          <h1 class="pokemon-name">
-            <span v-if="training" class="pokemon-name-generation">{{
-              training.generation.name
-            }}</span>
-            {{ pokemon.name }}
-            <span class="pokemon-number"
-              >#{{ pokemon.id | formatIdNumber }}</span
-            >
-          </h1>
-          <div class="card-image">
-            <figure class="image poke-image">
-              <b-image
-                :src="`${pokemon.sprites.other['official-artwork'].front_default}`"
-                :alt="`Pokémon - ${pokemon.name}`"
-                lazy
-              />
-            </figure>
-          </div>
-        </header>
+        <PokeHeader
+          :background="GET_BACKGROUND_COLOR"
+          :pending="$fetchState.pending"
+          :training="training"
+          :pokemon="pokemon"
+        />
         <div class="card-content pokemon-info">
           <div class="content">
             <b-tabs v-model="activeTab" @input="handleEvolution">
@@ -209,8 +188,11 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import PokeHeader from '@/components/Pokemon/PokeHeader'
+
 export default {
   name: 'PokemonName',
+  components: { PokeHeader },
   data() {
     return {
       activeTab: 0,
@@ -322,31 +304,6 @@ export default {
 
 <style lang="scss" scoped>
 .pokemon {
-  .p-header {
-    background: #dbdbdb;
-    .pokemon-name {
-      color: #fff;
-      font-size: 3rem;
-      font-weight: 700;
-      text-align: center;
-      padding-top: 20px;
-      text-transform: capitalize;
-    }
-    .pokemon-name-generation {
-      text-transform: none;
-      display: block;
-      font-size: 1rem;
-      color: rgba(23, 23, 27, 0.5);
-    }
-    .card-image {
-      display: flex;
-      justify-content: center;
-    }
-    .poke-image {
-      width: 250px;
-      height: 250px;
-    }
-  }
   .pokemon-info {
     font-family: Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen,
       Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
