@@ -145,10 +145,12 @@ export default {
       const pokemonSpecie =
         await this.$services.pokemonSpecie.getPokemonSpecieByName(name)
 
-      const id = pokemonSpecie.data.evolution_chain.url.replace(
-        'https://pokeapi.co/api/v2/evolution-chain/',
-        ''
-      )
+      const id = pokemonSpecie.data.evolution_chain
+        ? pokemonSpecie.data.evolution_chain.url.replace(
+            'https://pokeapi.co/api/v2/evolution-chain/',
+            ''
+          )
+        : ''
       const evolutionChain = await this.$services.evolution.getEvolution(id)
 
       this.pokemon = poke.data
@@ -187,7 +189,7 @@ export default {
   methods: {
     ...mapActions(['SET_POKEMON', 'SET_TRAINING', 'SET_WEAKNESSES']),
     evolutionChain(evolution) {
-      if (!evolution.species) return false
+      if (!evolution) return false
       this.evolutionChainNames.push(evolution.species.name)
       evolution.evolves_to.forEach((evolvesTo) => {
         return this.evolutionChain(evolvesTo)
