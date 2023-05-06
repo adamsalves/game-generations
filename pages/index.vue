@@ -26,6 +26,7 @@ export default {
         '#EBA8C3',
         '#F2CB55',
         '#8BBEBE',
+        '#8551f7',
       ],
     }
   },

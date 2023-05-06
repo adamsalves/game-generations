@@ -43,6 +43,7 @@ export default {
         'generation-vi': '#6',
         'generation-vii': '#7',
         'generation-viii': '#8',
+        'generation-ix': '#9',
         default: '#1',
       }
       return generations[generation] || generations.default
